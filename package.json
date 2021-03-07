@@ -13,5 +13,8 @@
     "find-my-way": "^4.0.0",
     "flat": "^5.0.2",
     "require-dir": "^1.2.0"
+  },
+  "devDependencies": {
+    "koa": "^2.13.1"
   }
 }
