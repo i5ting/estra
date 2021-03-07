@@ -1,3 +1,7 @@
+const http = require('http')
+const requireDir = require('require-dir')
+const flatten = require('flat')
+
 const FN_ARGS = /^(function)?\s*\*?\s*[^\(]*\(\s*([^\)]*)\)/m
 const FN_ARG_SPLIT = /,/
 const FN_ARG = /^\s*(_?)(\S+?)\1\s*$/
@@ -66,4 +70,20 @@ function mountOne(router, Clazz) {
     }
 }
 
-module.exports = mountOne
+module.exports = function (dir) {
+    const router = require('find-my-way')()
+    const all = requireDir(dir, { recurse: true })
+    // console.dir((all))
+    const objects = flatten(all)
+    for (var i in objects) {
+        // console.dir(i)
+        const Clazz = objects[i]
+        mountOne(router, Clazz)
+    }
+
+    const server = http.createServer((req, res) => {
+        router.lookup(req, res)
+    })
+
+    return server
+}

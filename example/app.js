@@ -1,16 +1,5 @@
-
-const http = require('http')
-const router = require('find-my-way')()
 const estra = require('../index')
-
-const A = require('./src/a')
-
-
-estra(router, A)
-
-const server = http.createServer((req, res) => {
-    router.lookup(req, res)
-})
+const server = estra(__dirname + '/src')
 
 server.listen(3000, err => {
     if (err) throw err
