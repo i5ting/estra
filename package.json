@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "debug": "^4.3.1",
     "find-my-way": "^4.0.0",
     "flat": "^5.0.2",
     "require-dir": "^1.2.0"

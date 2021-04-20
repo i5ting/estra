@@ -2,6 +2,8 @@ const http = require('http')
 const requireDir = require('require-dir')
 const flatten = require('flat')
 
+const debug = require('debug')('estra')
+
 const FN_ARGS = /^(function)?\s*\*?\s*[^\(]*\(\s*([^\)]*)\)/m
 const FN_ARG_SPLIT = /,/
 const FN_ARG = /^\s*(_?)(\S+?)\1\s*$/
@@ -37,9 +39,8 @@ function mountOne(router, Clazz) {
 
     var a = new Clazz()
 
-    console.log(a.constructor.name)
     var propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(a));
-    console.dir(propertyNames)
+    
 
     for (var i in propertyNames) {
         // console.dir(propertyNames[i])
@@ -53,20 +54,17 @@ function mountOne(router, Clazz) {
             const _newfn = function () {
                 // console.log('in');
                 // console.dir(arguments[0])
-                console.dir(_original + "")
+                debug(_original + "")
                 var result = _original.apply(this, arguments);
                 // console.log('out');
                 return result;
             }
         
-            console.log('router info: ' + method.toUpperCase() + " " + propertyNames[i]);
-            
             router.on(method.toUpperCase() , propertyNames[i], (req, res, params) => {
                 // res.end('{"message":"hello world"}')
                 a.req = req
                 a.res = res
 
-                console.dir(_newfn + "")
                 var html = _newfn.bind(a)(propertyNames[i], req, res, params);
                 res.end(html)
             })

@@ -7,7 +7,7 @@ module.exports = class A {
         return '{"message":"hello 3"}'
     }
 
-    // "/hi" (method = "get") {
-    //     return '{"message":"hello hi"}'
-    // }
+    "/hi" (method = "get") {
+        return '{"message":"hello hi"}'
+    }
 }
