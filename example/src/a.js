@@ -1,5 +1,5 @@
 module.exports = class A {
-    get(path = "/") {
+    "/"(method = 'get') {
         return '{"message":"hello world"}'
     }
 }

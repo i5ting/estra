@@ -37,33 +37,37 @@ function mountOne(router, Clazz) {
 
     var a = new Clazz()
 
+    console.log(a.constructor.name)
     var propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(a));
     console.dir(propertyNames)
 
     for (var i in propertyNames) {
         // console.dir(propertyNames[i])
         if ('constructor' !== propertyNames[i]) {
-            // console.dir(propertyNames[i].toUpperCase())
-
             var parameters = getParameters(a[propertyNames[i]])
-            var path = parameters['path']
+            var method = parameters['method'] || 'GET'
             // console.dir(b)
 
             var _original = a[propertyNames[i]];
-            var _newfn = function () {
+            
+            const _newfn = function () {
                 // console.log('in');
                 // console.dir(arguments[0])
+                console.dir(_original + "")
                 var result = _original.apply(this, arguments);
                 // console.log('out');
                 return result;
             }
-
-            router.on(propertyNames[i].toUpperCase(), path, (req, res, params) => {
+        
+            console.log('router info: ' + method.toUpperCase() + " " + propertyNames[i]);
+            
+            router.on(method.toUpperCase() , propertyNames[i], (req, res, params) => {
                 // res.end('{"message":"hello world"}')
                 a.req = req
                 a.res = res
 
-                var html = _newfn.bind(a)(path, req, res, params);
+                console.dir(_newfn + "")
+                var html = _newfn.bind(a)(propertyNames[i], req, res, params);
                 res.end(html)
             })
         }
@@ -80,6 +84,8 @@ module.exports = function (dir) {
         const Clazz = objects[i]
         mountOne(router, Clazz)
     }
+
+    console.log(router.prettyPrint())
 
     const server = http.createServer((req, res) => {
         router.lookup(req, res)

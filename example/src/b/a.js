@@ -1,5 +1,13 @@
 module.exports = class A {
-    get(path = "/2") {
-        return '{"message":"hello world"}'
+    "/2" (method = "get") {
+        return '{"message":"hello 2"}'
     }
+
+    "/3" (method = "get") {
+        return '{"message":"hello 3"}'
+    }
+
+    // "/hi" (method = "get") {
+    //     return '{"message":"hello hi"}'
+    // }
 }
