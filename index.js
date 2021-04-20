@@ -48,7 +48,7 @@ function mountOne(router, Clazz) {
             var method = parameters['method'] || 'GET'
             // console.dir(b)
 
-            var _original = a[propertyNames[i]];
+            const _original = a[propertyNames[i]];
             
             const _newfn = function () {
                 // console.log('in');
