@@ -36,7 +36,7 @@ function getParameters(fn) {
 }
 
 function mountOne(router, Clazz) {
-
+    console.dir(Clazz)
     var a = new Clazz()
 
     var propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(a));
@@ -75,10 +75,14 @@ function mountOne(router, Clazz) {
 module.exports = function (dir) {
     const router = require('find-my-way')()
     const all = requireDir(dir, { recurse: true })
-    // console.dir((all))
+    console.dir((dir))
+    console.dir((all))
     const objects = flatten(all)
+
+    console.dir((objects))
+
     for (var i in objects) {
-        // console.dir(i)
+        console.dir(i)
         const Clazz = objects[i]
         mountOne(router, Clazz)
     }
