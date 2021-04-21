@@ -75,14 +75,13 @@ function mountOne(router, Clazz) {
 module.exports = function (dir) {
     const router = require('find-my-way')()
     const all = requireDir(dir, { recurse: true })
-    console.dir((dir))
-    console.dir((all))
+    debug(dir)
+    debug(all)
     const objects = flatten(all)
-
-    console.dir((objects))
+    debug(objects)
 
     for (var i in objects) {
-        console.dir(i)
+        debug(i)
         const Clazz = objects[i]
         mountOne(router, Clazz)
     }

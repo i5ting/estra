@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon example/app.js",
-    "test": "jest --verbose"
+    "test": "mocha --require intelli-espower-loader "
   },
   "keywords": [],
   "author": "",
@@ -17,8 +17,10 @@
     "require-dir": "^1.2.0"
   },
   "devDependencies": {
-    "jest": "^26.6.3",
+    "intelli-espower-loader": "^1.1.0",
     "koa": "^2.13.1",
+    "mocha": "^8.3.2",
+    "power-assert": "^1.6.1",
     "supertest": "^6.1.3"
   }
 }
