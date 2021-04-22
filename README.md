@@ -2,10 +2,14 @@
 
 https://scalatra.org//guides/2.7/http/routes.html
 
-```ts
+```js
 class A {
-    get(path = "/") {
-        return '{"message":"hello world"}'
+    "/" (method = "get") {
+        return '{"message":"hello 2"}'
+    }
+
+    "/hi" () {
+        return '{"message":"hello hi"}'
     }
 }
 ```
